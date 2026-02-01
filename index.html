@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Affordable Breakfast Menu with Prices for Every Morning</title>
+  <meta name="description" content="Affordable breakfast menu with prices in a premium Thora-inspired UI/UX. Full-width, professional, and engaging design." />
+
+  <style>
+    :root{
+      /* Thora-inspired premium palette */
+      --bg: #fff8ee;          /* warm cream */
+      --surface: #ffffff;     /* cards */
+      --text: #191816;        /* deep charcoal */
+      --muted: #5b564e;       /* warm gray */
+
+      --brand: #c25a1a;       /* burnt orange */
+      --brand2: #0f766e;      /* teal */
+      --brand3: #f3b54a;      /* honey */
+
+      --stroke: rgba(25,24,22,.12);
+      --shadow: 0 18px 45px rgba(25,24,22,.10);
+      --shadow2: 0 10px 25px rgba(25,24,22,.08);
+
+      --radius: 18px;
+      --radiusSm: 14px;
+      --max: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      line-height:1.7;
+      background:
+        radial-gradient(900px 420px at 15% -10%, rgba(194,90,26,.20), transparent 55%),
+        radial-gradient(900px 420px at 85% 0%, rgba(15,118,110,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg), #ffffff 45%, #ffffff);
+    }
+
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+    a{color:inherit}
+
+    /* Header (one line) */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(255,248,238,.78);
+      border-bottom:1px solid var(--stroke);
+    }
+    .headerRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
+      flex-wrap:nowrap; /* keep one line */
+    }
+    .brandBox{
+      display:flex; align-items:center; gap:10px; min-width:0;
+      white-space:nowrap;
+    }
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background:conic-gradient(from 210deg, var(--brand), var(--brand3), var(--brand2), var(--brand));
+      box-shadow: var(--shadow2);
+      border:1px solid rgba(255,255,255,.7);
+      flex:0 0 auto;
+    }
+    .brandTitle{
+      margin:0;
+      font-size:15px;
+      line-height:1;
+      letter-spacing:.2px;
+      text-overflow:ellipsis;
+      overflow:hidden;
+    }
+    .headerPill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.7);
+      box-shadow:0 6px 20px rgba(25,24,22,.06);
+      white-space:nowrap;
+    }
+    .headerPill strong{font-size:13px}
+    .headerPill span{font-size:12px; color:var(--muted)}
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--brand), #e9792f);
+      color:#fff;
+      font-weight:900;
+      font-size:13px;
+      text-decoration:none;
+      box-shadow: 0 14px 30px rgba(194,90,26,.25);
+      border:1px solid rgba(0,0,0,.05);
+      white-space:nowrap;
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .cta:hover{filter:brightness(1.03); transform:translateY(-1px)}
+    .cta:active{transform:translateY(0)}
+
+    /* Hero */
+    .hero{padding:36px 0 10px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.86));
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px -2px auto -2px;
+      height:120px;
+      background:linear-gradient(90deg, rgba(194,90,26,.18), rgba(243,181,74,.18), rgba(15,118,110,.18));
+      border-bottom:1px solid rgba(25,24,22,.06);
+    }
+    .cardInner{position:relative; padding:22px}
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(25,24,22,.10);
+      background:rgba(255,255,255,.75);
+      font-weight:900;
+      font-size:12px;
+    }
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--brand2)}
+    .heroTitle{
+      margin:12px 0 8px;
+      font-size:34px;
+      line-height:1.15;
+      letter-spacing:-.6px;
+    }
+    .heroSub{margin:0; color:var(--muted); font-size:15px; max-width:70ch}
+    .heroActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .btnGhost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.8);
+      text-decoration:none;
+      font-weight:900;
+      font-size:13px;
+      transition:transform .12s ease;
+    }
+    .btnGhost:hover{transform:translateY(-1px)}
+    .btnGhost:active{transform:translateY(0)}
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:18px;
+    }
+    .stat{
+      padding:12px 12px;
+      border-radius:var(--radiusSm);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.78);
+    }
+    .stat b{display:block; font-size:14px}
+    .stat small{color:var(--muted)}
+
+    /* Side */
+    .side{padding:18px}
+    .side h3{margin:0 0 8px; font-size:15px; letter-spacing:.2px}
+    .miniList{
+      margin:10px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .miniList li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      border-radius:var(--radiusSm);
+      background:rgba(255,255,255,.78);
+    }
+    .badge{
+      width:26px;height:26px;
+      border-radius:10px;
+      background:rgba(15,118,110,.12);
+      border:1px solid rgba(15,118,110,.22);
+      display:grid; place-items:center;
+      color:var(--brand2);
+      font-weight:900;
+      font-size:14px;
+      line-height:1;
+      flex:0 0 auto;
+    }
+    .miniList p{margin:0; color:var(--muted); font-size:13px}
+    .miniList strong{color:var(--text); font-size:13px}
+
+    /* Main sections */
+    main{padding:10px 0 46px}
+    .stack{display:grid; gap:16px}
+    .sectionCard{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .sectionHead{
+      padding:16px 18px;
+      border-bottom:1px solid rgba(25,24,22,.08);
+      background:linear-gradient(180deg, rgba(243,181,74,.12), rgba(255,255,255,0));
+    }
+    .sectionHead h2{margin:0; font-size:18px; letter-spacing:-.2px}
+    .sectionBody{padding:16px 18px}
+    .sectionBody p{margin:0 0 12px}
+    .sectionBody p:last-child{margin-bottom:0}
+
+    /* First link callout */
+    .callout{
+      padding:12px 12px;
+      border-radius:var(--radiusSm);
+      background:rgba(194,90,26,.08);
+      border:1px solid rgba(194,90,26,.18);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .callout a{
+      color:var(--brand);
+      font-weight:900;
+      text-decoration:none;
+      border-bottom:1px dashed rgba(194,90,26,.55);
+    }
+
+    /* Inline link style for second link */
+    .inLink{
+      color:var(--brand2);
+      font-weight:900;
+      text-decoration:none;
+      border-bottom:1px dashed rgba(15,118,110,.55);
+    }
+    .inLink:hover{filter:brightness(1.05)}
+
+    /* Menu list */
+    .ideas{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .ideas li{
+      padding:12px 12px;
+      border-radius:var(--radiusSm);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.86);
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .ideas .icon{
+      width:34px;height:34px;border-radius:14px;
+      background:rgba(243,181,74,.18);
+      border:1px solid rgba(243,181,74,.30);
+      display:grid; place-items:center;
+      font-size:16px;
+      flex:0 0 auto;
+    }
+    .ideas b{display:block}
+    .ideas small{color:var(--muted)}
+
+    /* Price table */
+    .tableWrap{
+      overflow:auto;
+      border-radius:var(--radiusSm);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.9);
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:860px;
+    }
+    th,td{
+      text-align:left;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(25,24,22,.08);
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{
+      background:linear-gradient(180deg, rgba(15,118,110,.12), rgba(255,255,255,0));
+      font-size:13px;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      color:rgba(25,24,22,.72);
+    }
+    tr:last-child td{border-bottom:none}
+    .priceTag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(194,90,26,.10);
+      border:1px solid rgba(194,90,26,.20);
+      font-weight:900;
+      color:rgba(25,24,22,.9);
+      white-space:nowrap;
+    }
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--stroke);
+      background:rgba(255,255,255,.75);
+      padding:22px 0;
+    }
+    .footerRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .footerLeft p{margin:6px 0 0; color:var(--muted); font-size:13px}
+    .social{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .social a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.85);
+      text-decoration:none;
+      font-weight:900;
+      font-size:13px;
+      transition:transform .12s ease;
+    }
+    .social a:hover{transform:translateY(-1px)}
+    .tiny{font-size:12px; color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr}
+      .heroTitle{font-size:30px}
+      table{min-width:760px}
+    }
+    @media (max-width: 520px){
+      .heroTitle{font-size:26px}
+      .stats{grid-template-columns:1fr}
+      .headerPill{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (one line) -->
+  <header>
+    <div class="container">
+      <div class="headerRow">
+        <div class="brandBox">
+          <div class="logo" aria-hidden="true"></div>
+          <h1 class="brandTitle">Affordable Breakfast Menu with Prices • Everyday Value</h1>
+        </div>
+
+        <div class="headerPill" aria-label="Brand promise">
+          <strong>Thora UI</strong>
+          <span>premium • clear • trusted</span>
+        </div>
+
+        <a class="cta" href="#price-table">See Prices</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="heroGrid">
+        <div class="card">
+          <div class="cardInner">
+            <div class="kicker"><span class="dot"></span>Transparent pricing • better decisions • stronger trust</div>
+            <h2 class="heroTitle">Affordable Breakfast Menu with Prices for Every Morning</h2>
+
+            <p class="heroSub">
+              A breakfast menu with prices helps people make quick, confident decisions at the start of the day. Whether it is for a café, restaurant, hotel, or food website,
+              clearly listed breakfast options along with prices remove confusion and save time. Many customers want to enjoy a satisfying breakfast without worrying about hidden costs
+              or expensive items. At the same time, they expect quality, taste, and value for money.
+            </p>
+
+            <div class="heroActions">
+              <a class="btnGhost" href="#why">Why Prices Matter</a>
+              <a class="btnGhost" href="#pain">Customer Pain Points</a>
+              <a class="btnGhost" href="#pricing">Pricing Tips</a>
+            </div>
+
+            <div class="stats" aria-label="Highlights">
+              <div class="stat"><b>More trust</b><small>clear & fair pricing</small></div>
+              <div class="stat"><b>Faster ordering</b><small>less hesitation</small></div>
+              <div class="stat"><b>Better value</b><small>portion clarity</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card side">
+          <h3>What customers want in the morning</h3>
+          <ul class="miniList">
+            <li>
+              <div class="badge">✓</div>
+              <div>
+                <strong>Budget-friendly choices</strong>
+                <p>A clear range: light, regular, and filling options.</p>
+              </div>
+            </li>
+            <li>
+              <div class="badge">✓</div>
+              <div>
+                <strong>No hidden costs</strong>
+                <p>Transparent pricing increases comfort and loyalty.</p>
+              </div>
+            </li>
+            <li>
+              <div class="badge">✓</div>
+              <div>
+                <strong>Good value</strong>
+                <p>Fresh ingredients + fair portions = repeat customers.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <main>
+    <div class="container">
+      <div class="stack">
+
+        <!-- Intro with FIRST LINK (mid intro) -->
+        <article class="sectionCard" id="why">
+          <div class="sectionHead">
+            <h2>Why Breakfast Menus with Prices Matter</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              Pricing plays a major role in food choices, especially during breakfast when people are often in a hurry. Customers want affordable options that provide enough energy to last through the morning.
+              A breakfast menu without prices creates hesitation, while transparent pricing builds trust.
+            </p>
+
+            <p class="callout">
+              For inspiration and structure, explore a curated
+              <a href="https://breakfastmenu.org" target="_blank" rel="noopener">Breakfast menu with prices</a>
+              and adapt the layout, item names, and pricing tiers to match your audience and location.
+            </p>
+
+            <p>
+              Another important factor is value perception. Customers compare portion size, ingredients, and freshness with the price. A breakfast menu with clearly defined prices helps businesses highlight
+              value-driven options and attract a wider audience, including students, working professionals, and families.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="pain">
+          <div class="sectionHead">
+            <h2>Common Pain Points Customers Face</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              One of the biggest pain points is uncertainty about cost. Many people avoid ordering breakfast outside because they fear it may be overpriced. A clear breakfast menu with prices removes this barrier.
+              Another issue is limited budget-friendly options, where menus focus only on premium items.
+            </p>
+            <p>
+              Customers also struggle with portion confusion, unsure whether the price matches the serving size. A well-designed menu solves this by offering a mix of light, regular, and filling breakfast choices at different
+              price points. This flexibility allows customers to choose according to appetite and budget.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="factors">
+          <div class="sectionHead">
+            <h2>Key Factors That Influence Breakfast Prices</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              Breakfast prices depend on ingredient quality, portion size, preparation time, and location. Simple meals made with basic ingredients tend to be more affordable, while protein-rich or specialty items cost slightly more.
+              Seasonal ingredients can help reduce costs and improve freshness.
+            </p>
+            <p>
+              Pricing should always align with the target audience. For example, a café near offices may focus on quick, mid-range pricing, while a family restaurant may emphasize value meals. A smart breakfast menu balances
+              affordability with quality to avoid compromising customer satisfaction.
+            </p>
+          </div>
+        </article>
+
+        <!-- List -->
+        <article class="sectionCard" id="menu-list">
+          <div class="sectionHead">
+            <h2>Breakfast Menu List Section</h2>
+          </div>
+          <div class="sectionBody">
+            <p>Below is a single dedicated list section showing popular breakfast items that are commonly included in menus with reasonable pricing:</p>
+
+            <ul class="ideas">
+              <li><div class="icon" aria-hidden="true">🍳</div><div><b>Classic egg breakfast with toast</b><small>Comfortable, filling, and cost-effective.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🥣</div><div><b>Oatmeal served with milk and fruit</b><small>Affordable nutrition with steady energy.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🍯</div><div><b>Yogurt bowl with honey and nuts</b><small>Protein + healthy fats at a friendly price.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🥚</div><div><b>Vegetable omelet with bread</b><small>Higher value with fresh ingredients.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🥞</div><div><b>Pancakes with syrup or fruit topping</b><small>Classic favorite with flexible toppings.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🥤</div><div><b>Breakfast smoothie with fresh fruits</b><small>Quick, portable, and budget-friendly.</small></div></li>
+              <li><div class="icon" aria-hidden="true">🍎</div><div><b>Fresh seasonal fruit plate</b><small>Light option with strong perceived value.</small></div></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Price Table -->
+        <article class="sectionCard" id="price-table">
+          <div class="sectionHead">
+            <h2>Breakfast Menu with Prices Table</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              The table below shows a sample breakfast menu with prices, designed to be affordable and suitable for cafés, diners, or small restaurants. Prices may vary by location.
+            </p>
+
+            <div class="tableWrap" role="region" aria-label="Breakfast menu with prices table" tabindex="0">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Breakfast Item</th>
+                    <th>Description</th>
+                    <th>Price (USD)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Classic Egg &amp; Toast</b></td>
+                    <td>Two eggs with toasted bread</td>
+                    <td><span class="priceTag">$4.50</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Oatmeal Bowl</b></td>
+                    <td>Oats cooked with milk and fruit</td>
+                    <td><span class="priceTag">$3.80</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Yogurt &amp; Honey Bowl</b></td>
+                    <td>Yogurt topped with nuts and honey</td>
+                    <td><span class="priceTag">$4.20</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Vegetable Omelet</b></td>
+                    <td>Omelet with fresh vegetables</td>
+                    <td><span class="priceTag">$5.00</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Pancakes</b></td>
+                    <td>Two pancakes with syrup</td>
+                    <td><span class="priceTag">$4.75</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Breakfast Smoothie</b></td>
+                    <td>Fruit blend with milk</td>
+                    <td><span class="priceTag">$3.50</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Fresh Fruit Plate</b></td>
+                    <td>Seasonal fruits selection</td>
+                    <td><span class="priceTag">$3.25</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+
+        <!-- Pricing section + SECOND LINK mid content -->
+        <article class="sectionCard" id="pricing">
+          <div class="sectionHead">
+            <h2>How to Price a Breakfast Menu Smartly</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              Pricing should reflect both cost and customer expectations. A breakfast menu with prices should include low-cost items to attract budget-conscious customers and slightly higher-priced items for those looking for premium
+              ingredients. This pricing range increases overall sales and customer satisfaction.
+            </p>
+
+            <p>
+              Combining items into value deals, such as breakfast combos, can also increase perceived value. For example, pairing eggs with toast and a drink at a reasonable price feels more satisfying than ordering items separately.
+              Smart pricing encourages customers to try more items without feeling pressured. If your mornings also include live updates, you can check
+              <a class="inLink" href="https://crictime.com" target="_blank" rel="noopener">live cricket match times &amp; score updates</a>
+              and plan staffing or promotions around peak breakfast hours.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="healthy">
+          <div class="sectionHead">
+            <h2>Healthy Breakfast Options at Affordable Prices</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              Healthy breakfasts do not need to be expensive. Items like oatmeal, eggs, fruits, and yogurt offer excellent nutrition at low cost. A breakfast menu with prices that highlights these options appeals to health-conscious
+              customers who also care about budgeting.
+            </p>
+            <p>
+              Avoiding excessive sugar and deep-fried foods helps maintain quality while controlling costs. Simple cooking methods and fresh ingredients keep prices stable and meals light. Including healthy options also improves the
+              overall reputation of the breakfast menu.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="mistakes">
+          <div class="sectionHead">
+            <h2>Mistakes to Avoid When Listing Breakfast Prices</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              One common mistake is overpricing basic items without added value. Customers quickly notice when prices feel unreasonable. Another mistake is hiding portion information, which can make customers feel disappointed after ordering.
+            </p>
+            <p>
+              Inconsistent pricing is also harmful. Similar items should have logical price differences based on ingredients or portion size. Clear and simple pricing builds trust and encourages repeat visits.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="seo">
+          <div class="sectionHead">
+            <h2>Making a Breakfast Menu with Prices SEO-Friendly</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              For websites, a breakfast menu with prices should be written in a clear and structured way. Using headings, descriptive item names, and natural keywords improves visibility on search engines. Customers often search for terms like
+              “breakfast menu with prices near me” or “cheap breakfast menu,” so content should answer these needs naturally.
+            </p>
+            <p>
+              Adding location-based keywords, clear tables, and helpful descriptions improves user experience and search ranking. An SEO-friendly breakfast menu focuses on clarity rather than keyword stuffing.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="loyalty">
+          <div class="sectionHead">
+            <h2>Why Transparent Pricing Builds Customer Loyalty</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              Customers appreciate honesty. When prices are clear and fair, trust increases. A transparent breakfast menu with prices reduces hesitation and makes ordering easier, especially for first-time customers. This transparency often
+              leads to repeat visits and positive word-of-mouth.
+            </p>
+            <p>
+              Affordable pricing combined with consistent quality creates long-term loyalty. Customers are more likely to recommend places where they feel comfortable ordering without worrying about unexpected costs.
+            </p>
+          </div>
+        </article>
+
+        <article class="sectionCard" id="conclusion">
+          <div class="sectionHead">
+            <h2>Conclusion</h2>
+          </div>
+          <div class="sectionBody">
+            <p>
+              A well-designed breakfast menu with prices is essential for both customers and food businesses. It removes confusion, builds trust, and helps people choose meals that fit their budget and lifestyle. By offering a mix of affordable
+              and premium options, businesses can cater to a wider audience without sacrificing quality.
+            </p>
+            <p>
+              Whether for a café, restaurant, or food website, a clear and balanced breakfast menu with prices supports better decision-making and customer satisfaction. With smart planning, fair pricing, and quality ingredients, breakfast can remain
+              both enjoyable and affordable for everyone.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footerRow">
+        <div class="footerLeft">
+          <strong>Thora-Brand Breakfast UI • Full-Width • Professional & Engaging</strong>
+          <p class="tiny">Perfect for cafés, diners, hotels, and food websites — clean layout, clear pricing, and premium visuals.</p>
+        </div>
+
+        <nav class="social" aria-label="Social links">
+          <a href="https://www.facebook.com" target="_blank" rel="noopener">📘 Facebook</a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener">📷 Instagram</a>
+          <a href="https://www.twitter.com" target="_blank" rel="noopener">🐦 Twitter / X</a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener">💼 LinkedIn</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
